@@ -1,7 +1,10 @@
 import java.util.Scanner;
 
+
 public class Account {
-    private String password = "haslo";
+
+    private String login;
+    private String password;
     private String accountNumber;
     private double balance;
     private String customerName;
@@ -11,14 +14,17 @@ public class Account {
     public int toWithDrawFounds;
     public int action;
 
+
     //default values
-    public Account(){
-        this("0 0000 0000 0000 00",0.0,
-                "Unknown User","unknown.email@gmail.com",555_555_555);
+    public Account() {
+        this("unknown", "876354", "0 0000 0000 0000 00", 0.0,
+                "Unknown User", "unknown.email@gmail.com", 555_555_555);
     }
 
     //constructor
-    public Account(String accountNumber, double balance, String customerName, String email, int phoneNumber) {
+    public Account(String login, String password, String accountNumber, double balance, String customerName, String email, int phoneNumber) {
+        this.login = login;
+        this.password = password;
         this.accountNumber = accountNumber;
         this.balance = balance;
         this.customerName = customerName;
@@ -26,7 +32,7 @@ public class Account {
         this.phoneNumber = phoneNumber;
     }
 
-    //action
+    //user input
     public void setAction() {
         Scanner choice = new Scanner(System.in);
         this.action = choice.nextInt();
@@ -34,7 +40,7 @@ public class Account {
 
     public int getAction() {
         do {
-            if (this.action != 1 && this.action != 2)
+            if (this.action != 1 && this.action != 2 && this.action != 3 && this.action != 4)
                 System.out.println("Incorrect value");
             else
                 break;
@@ -46,8 +52,11 @@ public class Account {
     //access
     public boolean checkAcces() {
         Scanner word = new Scanner(System.in);
+        System.out.printf("Login: ");
+        String userInputLogin = word.nextLine();
+        System.out.printf("Password: ");
         String userInput = word.nextLine();
-        if (this.password.equals(userInput))
+        if (this.login.equals(userInputLogin) && this.password.equals(userInput))
             return true;
         else
             return false;
@@ -90,6 +99,13 @@ public class Account {
         Scanner value = new Scanner(System.in);
         this.toWithDrawFounds = value.nextInt();
         this.balance -= this.toWithDrawFounds;
+    }
+
+    //action menu
+    public void showMenu() {
+        System.out.println("\nAction: ");
+        System.out.println("1.Deposit Funds\n2.Withdraw Funds");
+        System.out.println("3.Actual Balance\n4.Log Out");
     }
 }
 
